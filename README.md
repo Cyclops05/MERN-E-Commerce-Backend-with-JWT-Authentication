@@ -1,70 +1,287 @@
-# Getting Started with Create React App
+# 🛍️ MERN E-Commerce Backend + Frontend  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modular **Node.js + Express + MongoDB (Mongoose)** backend connected to a **React frontend**, built for a simple e-commerce platform.  
+Includes **JWT authentication**, **password encryption**, and **user-product linking** — each user can add products, and those products are tied back to the user in the database.  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features  
+✅ User Registration and Login  
+✅ JWT-based Authentication  
+✅ Add and View Products  
+✅ Each Product Linked to its Creator  
+✅ Users Have a Dynamic Product List  
+✅ RESTful JSON APIs  
+✅ Ready-to-Connect React Frontend  
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🧱 Project Structure  
+```
+Ecommerce-Project/
+├── backend/
+│   ├── controller/
+│   ├── modules/
+│   ├── routers/
+│   ├── middleware/
+│   ├── index.js
+│   ├── package.json
+│   └── .env
+└── frontend/
+    ├── src/
+    │   ├── api.js
+    │   ├── components/
+    │   │   ├── Login.js
+    │   │   ├── Register.js
+    │   │   ├── ProductList.js
+    │   │   └── AddProduct.js
+    │   ├── App.js
+    │   └── index.js
+    ├── package.json
+    └── README.md
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## ⚙️ Backend Setup  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1️⃣ Install Dependencies  
+```bash
+npm init -y
+npm install express mongoose cors dotenv body-parser jsonwebtoken bcrypt
+npm install --save-dev nodemon
+```
 
-### `npm run build`
+### 2️⃣ Run the Backend  
+```bash
+npm run dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Your backend will start on **http://localhost:4000**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ⚛️ Frontend Setup  
 
-### `npm run eject`
+### 1️⃣ Create and Setup Frontend  
+```bash
+npx create-react-app frontend
+cd frontend
+npm install axios react-router-dom
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 2️⃣ Start the Frontend  
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Frontend runs on **http://localhost:3000**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🌐 API Endpoints (Backend → Frontend Connection)
 
-## Learn More
+Your backend runs on **http://localhost:4000**, and all routes are prefixed with `/api`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🧍‍♂️ User Authentication Routes
 
-### Code Splitting
+#### 🔹 Register User  
+**Endpoint:**  
+```
+POST http://localhost:4000/api/users/register
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Request Body:**  
+```json
+{
+  "username": "ankit",
+  "password": "12345"
+}
+```
 
-### Analyzing the Bundle Size
+**Response Example:**  
+```json
+{
+  "message": "User registered successfully",
+  "user": {
+    "_id": "674b0872ac1d2a5c9874f7a1",
+    "username": "ankit"
+  }
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+#### 🔹 Login User  
+**Endpoint:**  
+```
+POST http://localhost:4000/api/users/login
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Request Body:**  
+```json
+{
+  "username": "ankit",
+  "password": "12345"
+}
+```
 
-### Advanced Configuration
+**Response Example:**  
+```json
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": { "_id": "674b0872ac1d2a5c9874f7a1", "username": "ankit" }
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+### 🛒 Product Routes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### 🔹 Add Product (JWT Protected)
+**Endpoint:**  
+```
+POST http://localhost:4000/api/products/add
+```
 
-### `npm run build` fails to minify
+**Headers:**  
+```
+Authorization: Bearer <JWT_TOKEN>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Request Body:**  
+```json
+{
+  "name": "iPhone 15",
+  "price": 125000,
+  "category": "Mobiles"
+}
+```
+
+**Response Example:**  
+```json
+{
+  "message": "Product added successfully",
+  "product": {
+    "_id": "674b0935ac1d2a5c9874f7a2",
+    "name": "iPhone 15",
+    "price": 125000,
+    "category": "Mobiles",
+    "user": "674b0872ac1d2a5c9874f7a1"
+  }
+}
+```
+
+---
+
+#### 🔹 Get All Products  
+**Endpoint:**  
+```
+GET http://localhost:4000/api/products/
+```
+
+**Response Type:**  
+```json
+{
+  "products": [
+    {
+      "_id": "674b0935ac1d2a5c9874f7a2",
+      "name": "MacBook Air",
+      "price": 89000,
+      "category": "Laptops",
+      "user": { "_id": "674b0872ac1d2a5c9874f7a1", "username": "ankit" }
+    }
+  ]
+}
+```
+
+---
+
+### 👥 User Routes
+
+#### 🔹 Get All Users (with Products)
+**Endpoint:**  
+```
+GET http://localhost:4000/api/users/
+```
+
+**Response Type:**  
+```json
+{
+  "users": [
+    {
+      "_id": "674b0872ac1d2a5c9874f7a1",
+      "username": "ankit",
+      "products": [
+        {
+          "_id": "674b0935ac1d2a5c9874f7a2",
+          "name": "iPhone 15",
+          "price": 125000,
+          "category": "Mobiles"
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## ⚙️ Frontend Connection
+
+The **frontend connects** to this backend through a single Axios instance inside:  
+📁 `frontend/src/api.js`
+
+```js
+// frontend/src/api.js
+import axios from "axios";
+
+export const API = axios.create({
+  baseURL: "http://localhost:4000/api", // Connection established here
+});
+```
+
+✅ Now every frontend component can call APIs like this:
+```js
+// Example: Get all products
+const res = await API.get("/products/");
+console.log(res.data.products);
+```
+
+---
+
+### 🧠 Example of Protected Route Call
+```js
+const token = localStorage.getItem("token");
+
+const res = await API.post(
+  "/products/add",
+  { name: "MacBook Air", price: 89000, category: "Laptops" },
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+```
+
+---
+
+## ✅ Summary
+
+| Purpose | Method | Endpoint |
+|----------|---------|-----------|
+| Register User | POST | `/api/users/register` |
+| Login User | POST | `/api/users/login` |
+| Add Product | POST | `/api/products/add` |
+| Get All Products | GET | `/api/products/` |
+| Get All Users | GET | `/api/users/` |
+
+**Connection Established in:**  
+➡️ `frontend/src/api.js`
+
+---
+
+## 💡 Author  
+**Ankit Sengupta**  
+Backend Developer | AI/ML Enthusiast  
+#america  
