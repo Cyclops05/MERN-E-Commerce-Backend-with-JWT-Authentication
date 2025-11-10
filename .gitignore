@@ -1,0 +1,26 @@
+# ===== Backend =====
+backend/node_modules/
+backend/.env
+backend/*.log
+backend/coverage/
+backend/logs/
+
+# ===== Frontend =====
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/*.log
+
+# ===== Common =====
+node_modules/
+.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+logs/
+*.log
+dist/
+build/
+uploads/
+temp/
